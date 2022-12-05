@@ -1,0 +1,372 @@
+||SELF||
+
+#include <iostream>
+
+class Self {
+  public:
+    void updateState(int emotion, int thought, int sensation) {
+      this->emotion = emotion;
+      this->thought = thought;
+      this->sensation = sensation;
+    }
+
+    int getEmotion() {
+      return this->emotion;
+    }
+
+    int getThought() {
+      return this->thought;
+    }
+
+    int getSensation() {
+      return this->sensation;
+    }
+
+  private:
+    int emotion;
+    int thought;
+    int sensation;
+};
+
+int main() {
+  Self self;
+  self.updateState(1, 2, 3);
+  std::cout << "Emotion: " << self.getEmotion() << std::endl;
+  std::cout << "Thought: " << self.getThought() << std::endl;
+  std::cout << "Sensation: " << self.getSensation() << std::endl;
+  return 0;
+}
+
+
+
+||BRAIN||
+
+#include <iostream>
+#include <vector>
+
+class Neuron {
+  public:
+    void addInput(int input) {
+      this->inputs.push_back(input);
+    }
+
+    int getOutput() {
+      // Calculate output based on inputs
+      int output = 0;
+      for (int i = 0; i < this->inputs.size(); i++) {
+        output += this->inputs[i];
+      }
+      return output;
+    }
+
+  private:
+    std::vector<int> inputs;
+};
+
+class Brain {
+  public:
+    Brain() {
+      // Create a network of neurons
+      this->neurons.resize(100);
+      for (int i = 0; i < this->neurons.size(); i++) {
+        this->neurons[i] = new Neuron();
+      }
+
+      // Connect neurons to each other
+      for (int i = 0; i < this->neurons.size(); i++) {
+        for (int j = 0; j < this->neurons.size(); j++) {
+          if (i != j) {
+            this->neurons[i]->addInput(this->neurons[j]->getOutput());
+          }
+        }
+      }
+    }
+
+    ~Brain() {
+      for (int i = 0; i < this->neurons.size(); i++) {
+        delete this->neurons[i];
+      }
+    }
+
+    int getOutput() {
+      // Calculate overall output of the brain
+      int output = 0;
+      for (int i = 0; i < this->neurons.size(); i++) {
+        output += this->neurons[i]->getOutput();
+      }
+      return output;
+    }
+
+  private:
+    std::vector<Neuron*> neurons;
+};
+
+int main() {
+  Brain brain;
+  std::cout << "Brain output: " << brain.getOutput() << std::endl;
+  return 0;
+}
+
+
+||SENSORY_INPUT||
+
+#include <iostream>
+#include <vector>
+
+class SensoryInput {
+  public:
+    SensoryInput() {
+      this->inputs.resize(10);
+    }
+
+    void setInput(int index, int input) {
+      this->inputs[index] = input;
+    }
+
+    int getInput(int index) {
+      return this->inputs[index];
+    }
+
+  private:
+    std::vector<int> inputs;
+};
+
+int main() {
+  SensoryInput sensory_input;
+  sensory_input.setInput(0, 1);
+  sensory_input.setInput(1, 2);
+  sensory_input.setInput(2, 3);
+  std::cout << "Sensory input: " << sensory_input.getInput(0) << ", "
+            << sensory_input.getInput(1) << ", " << sensory_input.getInput(2)
+            << std::endl;
+  return 0;
+}
+
+
+
+||RESPONSE TO SENSORY INPUT||
+
+#include <iostream>
+#include <vector>
+
+class SensoryInput {
+  public:
+    SensoryInput() {
+      this->inputs.resize(10);
+    }
+
+    void setInput(int index, int input) {
+      this->inputs[index] = input;
+    }
+
+    int getInput(int index) {
+      return this->inputs[index];
+    }
+
+  private:
+    std::vector<int> inputs;
+};
+
+class Neuron {
+  public:
+    void addInput(int input) {
+      this->inputs.push_back(input);
+    }
+
+    int getOutput() {
+      // Calculate output based on inputs
+      int output = 0;
+      for (int i = 0; i < this->inputs.size(); i++) {
+        output += this->inputs[i];
+      }
+      return output;
+    }
+
+  private:
+    std::vector<int> inputs;
+};
+
+class Brain {
+  public:
+    Brain() {
+      // Create a network of neurons
+      this->neurons.resize(100);
+      for (int i = 0; i < this->neurons.size(); i++) {
+        this->neurons[i] = new Neuron();
+      }
+
+      // Connect neurons to each other
+      for (int i = 0; i < this->neurons.size(); i++) {
+        for (int j = 0; j < this->neurons.size(); j++) {
+          if (i != j) {
+            this->neurons[i]->addInput(this->neurons[j]->getOutput());
+          }
+        }
+      }
+    }
+
+    ~Brain() {
+      for (int i = 0; i < this->neurons.size(); i++) {
+        delete this->neurons[i];
+      }
+    }
+
+    int getOutput() {
+      // Calculate overall output of the brain
+      int output = 0;
+      for (int i = 0; i < this->neurons.size(); i++) {
+        output += this->neurons[i]->getOutput();
+      }
+      return output;
+    }
+
+    void processInput(SensoryInput& sensory_input) {
+      // Process sensory input and generate appropriate responses
+      for (int i = 0; i < this->neurons.size(); i++) {
+        this->neurons[i]->addInput(sensory_input.getInput(i));
+      }
+    }
+
+  private:
+    std::vector<Neuron*> neurons;
+};
+
+int main() {
+  SensoryInput sensory_input;
+  sensory_input.setInput(0, 1);
+  sensory_input.setInput(1, 2);
+  sensory_input.setInput(2, 3);
+
+  Brain brain;
+  brain.processInput(sensory_input);
+  std::cout << "Brain output: " << brain.getOutput() << std
+
+.endl;
+return 0;
+}
+
+
+||ADAPTION||
+#include <iostream>
+#include <vector>
+
+class SensoryInput {
+  public:
+    SensoryInput() {
+      this->inputs.resize(10);
+    }
+
+    void setInput(int index, int input) {
+      this->inputs[index] = input;
+    }
+
+    int getInput(int index) {
+      return this->inputs[index];
+    }
+
+  private:
+    std::vector<int> inputs;
+};
+
+class Neuron {
+  public:
+    Neuron() : learning_rate(0.1) {}
+
+    void addInput(int input) {
+      this->inputs.push_back(input);
+    }
+
+    void setOutput(int output) {
+      this->output = output;
+    }
+
+    int getOutput() {
+      // Calculate output based on inputs
+      int output = 0;
+      for (int i = 0; i < this->inputs.size(); i++) {
+        output += this->inputs[i];
+      }
+      return output;
+    }
+
+    void updateWeights(int expected_output) {
+      // Update weights based on expected output and learning rate
+      int error = expected_output - this->output;
+      for (int i = 0; i < this->inputs.size(); i++) {
+        this->inputs[i] += error * this->learning_rate;
+      }
+    }
+
+  private:
+    std::vector<int> inputs;
+    int output;
+    float learning_rate;
+};
+
+class Brain {
+  public:
+    Brain(SensoryInput& sensory_input) : sensory_input(sensory_input) {
+      // Create a network of neurons
+      this->neurons.resize(100);
+      for (int i = 0; i < this->neurons.size(); i++) {
+        this->neurons[i] = new Neuron();
+      }
+
+      // Connect neurons to sensory input
+      for (int i = 0; i < this->neurons.size(); i++) {
+        for (int j = 0; j < sensory_input.inputs.size(); j++) {
+          this->neurons[i]->addInput(sensory_input.getInput(j));
+        }
+      }
+
+      // Connect neurons to each other
+      for (int i = 0; i < this->neurons.size(); i++) {
+        for (int j = 0; j < this->neurons.size(); j++) {
+          if (i != j) {
+            this->neurons[i]->addInput(this->neurons[j]->getOutput());
+          }
+        }
+      }
+    }
+
+    ~Brain() {
+      for (int i = 0; i < this->neurons.size(); i++) {
+        delete this->neurons[i];
+      }
+    }
+
+void processInput(SensoryInput& sensory_input, int expected_output) {
+  // Process sensory input and generate appropriate responses
+  for (int i = 0; i < this->neurons.size(); i++) {
+    // Set the output of each neuron based on its inputs
+    this->neurons[i]->setOutput(this->neurons[i]->getOutput());
+  }
+
+  // Update the weights of each neuron based on the expected output
+  for (int i = 0; i < this->neurons.size(); i++) {
+    this->neurons[i]->updateWeights(expected_output);
+  }
+}
+
+int getOutput() {
+  // Calculate the overall output of the network
+  int output = 0;
+  for (int i = 0; i < this->neurons.size(); i++) {
+    output += this->neurons[i]->getOutput();
+  }
+  return output;
+}
+
+
+||EXECUTE||
+
+int main() {
+  SensoryInput sensory_input;
+  sensory_input.setInput(0, 1);
+  sensory_input.setInput(1, 2);
+  sensory_input.setInput(2, 3);
+
+  Brain brain(sensory_input);
+  brain.processInput(sensory_input, 5);
+  std::cout << "Brain output: " << brain.getOutput() << std::endl;
+}
